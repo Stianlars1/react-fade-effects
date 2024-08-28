@@ -37,7 +37,7 @@
     "url": "https://github.com/stianlars1/react-fade-effects/issues"
   },
   "homepage": "https://github.com/stianlars1/react-fade-effects#readme",
-  "Dependencies": {
+  "dependencies": {
     "framer-motion": "^11.3.30",
     "react": "^18",
     "react-dom": "^18"
