@@ -1,0 +1,15 @@
+.textEffectWrapper {
+  display: inline-block;
+  vertical-align: top;
+  text-decoration: inherit;
+  text-wrap: balance;
+}
+.textEffectWrapper .word {
+  opacity: 0;
+  color: hsl(var(--foreground));
+  will-change: auto;
+}
+
+.renderWordsWrapper {
+  display: block;
+}/*# sourceMappingURL=fadeEffects.module.css.map */

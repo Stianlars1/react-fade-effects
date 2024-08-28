@@ -1,0 +1,50 @@
+{
+  "name": "@stianlarsen/react-fade-effects",
+  "version": "1.0.0",
+  "description": "A collection of React components for smooth fade-in animations, starting with FadeWords. Easily add fade effects to your UI elements with customizable options.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rm -rf dist && tsc && shx mkdir -p dist/css/  && shx cp src/css/fadeEffects.module.css dist/css/"
+  },
+  "files": [
+    "!src/**",
+    "dist",
+    "types"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stianlars1/react-fade-effects.git"
+  },
+  "keywords": [
+    "react",
+    "fade",
+    "animation",
+    "framer-motion",
+    "fade-in",
+    "fade-effects"
+  ],
+  "author": "Stian Larsen <stian.larsen@mac.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/stianlars1/react-fade-effects/issues"
+  },
+  "homepage": "https://github.com/stianlars1/react-fade-effects#readme",
+  "peerDependencies": {
+    "framer-motion": "^11.3.30",
+    "react": "^18",
+    "react-dom": "^18"
+  },
+  "devDependencies": {
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "typescript": "^5.5.4"
+  }
+}
