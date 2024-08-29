@@ -4,6 +4,12 @@
 
 A versatile React library for applying various fade-in effects to your UI components. Starting with the `FadeWords` component, this library will grow to include multiple fade-related components, such as fading text, images, children elements, and more.
 
+## Preview
+
+![Text effect Component](https://github.com/Stianlars1/react-fade-effects/blob/ced110a481610bdecd600bc72cbbfe589b6ff124/preview.gif)
+
+\_A preview of @stianlarsen/react-face-effects
+
 **Check out the [website](https://your-website-link.com) for demos, examples, and further info.**
 
 ## Features
