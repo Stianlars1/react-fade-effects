@@ -1,5 +1,7 @@
 # @stianlarsen/react-fade-effects
 
+[![npm version](https://badge.fury.io/js/%40stianlarsen%2Freact-fade-effects.svg)](https://badge.fury.io/js/%40stianlarsen%2Freact-fade-effects)
+
 A versatile React library for applying various fade-in effects to your UI components. Starting with the `FadeWords` component, this library will grow to include multiple fade-related components, such as fading text, images, children elements, and more.
 
 **Check out the [website](https://your-website-link.com) for demos, examples, and further info.**
