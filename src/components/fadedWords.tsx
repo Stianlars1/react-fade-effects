@@ -1,3 +1,5 @@
+// components/FadedWords.tsx
+
 "use client";
 import {
   motion,
@@ -21,33 +23,54 @@ export const FadedWords = ({
   scaleSize = undefined,
   once = true,
   translateAmount = undefined,
+  splitChar = " ", // Default to space
+  includeSpaces = true,
 }: FadeWordsProps) => {
   const [scope, animate] = useAnimate<HTMLDivElement>();
   const isInViewContainer = useRef<HTMLDivElement>(null);
   const isInView = useInView(isInViewContainer, {
-    once: once,
+    once,
     amount: 0.5,
   });
-  let wordsArray = words.split(" ");
+
+  // Adjusted splitting logic
+  let tokensArray: Array<{ value: string; isDelimiter: boolean }>;
+
+  if (Array.isArray(words)) {
+    // If words is an array, map it to tokens
+    tokensArray = words.map((word) => ({ value: word, isDelimiter: false }));
+  } else {
+    // If words is a string, tokenize it
+    let delimiterRegex: RegExp;
+
+    if (splitChar instanceof RegExp) {
+      delimiterRegex = splitChar;
+    } else {
+      // Escape any special regex characters in splitChar
+      delimiterRegex = new RegExp(escapeRegex(splitChar), "g");
+    }
+
+    tokensArray = tokenize(words, delimiterRegex);
+  }
+
   useEffect(() => {
     if (!isInView || !isInViewContainer.current || !scope.current) return;
-    if (isInView) {
-      setTimeout(() => {
-        animate(
-          ".singleWord",
-          {
-            opacity: 1,
-            filter: filter ? "blur(0px)" : "none",
-            transform: "translateY(0) scale(1)",
-          },
-          {
-            duration: duration,
-            delay: stagger(staggerTime),
-          }
-        );
-      }, delay);
-    }
-  }, [scope.current, isInView]);
+
+    setTimeout(() => {
+      animate(
+        ".singleWord",
+        {
+          opacity: 1,
+          filter: filter ? "blur(0px)" : "none",
+          transform: "translateY(0) scale(1)",
+        },
+        {
+          duration,
+          delay: stagger(staggerTime),
+        }
+      );
+    }, delay * 1000); // Convert delay to milliseconds
+  }, [isInView, animate, delay, duration, filter, staggerTime]);
 
   const RenderWords = () => {
     const initialStyleObject: MotionStyle = getInitialStyleObject(
@@ -57,24 +80,26 @@ export const FadedWords = ({
       translateAmount
     );
 
-    const WORD_SPACE = <>&nbsp;</>;
     return (
       <motion.span
         ref={scope}
-        className={`${className} ${styles.textEffectWrapper}`}
+        className={`${className || ""} ${styles.textEffectWrapper}`}
       >
-        {wordsArray.map((word, idx) => {
-          return (
-            <motion.span
-              key={word + idx}
-              className={`${styles.word} singleWord`}
-              style={initialStyleObject}
-            >
-              {word}
-              {WORD_SPACE}
-            </motion.span>
-          );
-        })}
+        {tokensArray.map((token, idx) => (
+          <motion.span
+            key={token.value + idx}
+            className={`${styles.word} singleWord`}
+            style={initialStyleObject}
+          >
+            {token.value}
+            {/* Conditionally include space after words but not after delimiters */}
+            {includeSpaces &&
+            !token.isDelimiter &&
+            idx < tokensArray.length - 1 ? (
+              <>&nbsp;</>
+            ) : null}
+          </motion.span>
+        ))}
       </motion.span>
     );
   };
@@ -92,56 +117,75 @@ const getInitialStyleObject = (
   scaleSize?: number,
   translateAmount?: number
 ) => {
-  const baseStyle = {
+  const baseStyle: MotionStyle = {
     opacity: 0,
     filter: filter ? "blur(20px)" : "none",
     display: "inline-block",
   };
 
-  if (variant === "up") {
-    return {
-      ...baseStyle,
-      transform: `${
-        translateAmount
-          ? `translateY(${translateAmount}px)`
-          : "translateY(15px)"
-      } ${scaleSize ? `scale(${scaleSize})` : "scale(1)"}`,
-    };
-  }
-  if (variant === "down") {
-    // -
-    return {
-      ...baseStyle,
-      transform: `${
-        translateAmount
-          ? `translateY(-${translateAmount}px)`
-          : "translateY(-15px)"
-      } ${scaleSize ? `scale(${scaleSize})` : "scale(1)"}`,
-    };
+  let transformValue = "";
+
+  switch (variant) {
+    case "up":
+      transformValue = `translateY(${
+        translateAmount !== undefined ? translateAmount : 15
+      }px)`;
+      break;
+    case "down":
+      transformValue = `translateY(${
+        translateAmount !== undefined ? -translateAmount : -15
+      }px)`;
+      break;
+    case "left":
+      transformValue = `translateX(${
+        translateAmount !== undefined ? translateAmount : 15
+      }px)`;
+      break;
+    case "right":
+      transformValue = `translateX(${
+        translateAmount !== undefined ? -translateAmount : -15
+      }px)`;
+      break;
+    default:
+      transformValue = "";
   }
 
-  if (variant === "left") {
-    return {
-      ...baseStyle,
-      transform: `${
-        translateAmount
-          ? `translateX(${translateAmount}px)`
-          : "translateX(15px)"
-      } ${scaleSize ? `scale(${scaleSize})` : "scale(1)"}`,
-    };
+  if (scaleSize !== undefined) {
+    transformValue += ` scale(${scaleSize})`;
   }
 
-  if (variant === "right") {
-    // -
-    return {
-      ...baseStyle,
-      transform: `${
-        translateAmount
-          ? `translateX(-${translateAmount}px)`
-          : "translateX(-15px)"
-      } ${scaleSize ? `scale(${scaleSize})` : "scale(1)"}`,
-    };
-  }
+  return {
+    ...baseStyle,
+    transform: transformValue || undefined,
+  };
+};
 
-  return baseStyle;
+const tokenize = (
+  str: string,
+  delimiterRegex: RegExp
+): Array<{ value: string; isDelimiter: boolean }> => {
+  const tokens: Array<{ value: string; isDelimiter: boolean }> = [];
+  let lastIndex = 0;
+
+  const regex = new RegExp(delimiterRegex, "g");
+  let match;
+
+  while ((match = regex.exec(str)) !== null) {
+    if (match.index > lastIndex) {
+      tokens.push({
+        value: str.slice(lastIndex, match.index),
+        isDelimiter: false,
+      });
+    }
+    tokens.push({ value: match[0], isDelimiter: true });
+    lastIndex = regex.lastIndex;
+  }
+  if (lastIndex < str.length) {
+    tokens.push({ value: str.slice(lastIndex), isDelimiter: false });
+  }
+  return tokens;
+};
+
+const escapeRegex = (str: string) => {
+  return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 };

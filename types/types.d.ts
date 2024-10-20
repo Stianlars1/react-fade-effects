@@ -1,6 +1,6 @@
 export type FadeWordsVariantType = "default" | "up" | "down" | "left" | "right";
 export type FadeWordsProps = {
-  words: string;
+  words: string | string[];
   className?: string;
   filter?: boolean;
   duration?: number;
@@ -10,4 +10,6 @@ export type FadeWordsProps = {
   scaleSize?: number;
   once?: boolean;
   translateAmount?: number;
+  splitChar?: string | RegExp;
+  includeSpaces?: boolean;
 };

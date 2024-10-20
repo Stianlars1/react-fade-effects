@@ -10,7 +10,7 @@ A versatile React library for applying various fade-in effects to your UI compon
 
 \_A preview of @stianlarsen/react-face-effects
 
-**Website coming soon with examples and demos**
+**Check out the [website](https://your-website-link.com) for demos, examples, and further info.**
 
 ## Features
 
@@ -63,7 +63,7 @@ The `FadeWords` component accepts several props to customize its behavior and ap
 
 | Prop              | Type                              | Description                                                                                             |
 | ----------------- | --------------------------------- | ------------------------------------------------------------------------------------------------------- |
-| `words`           | `string` or `string[]`            | The text or array of words to be displayed with the fade effect.                                        |
+| `words`           | `string` or `string[]`            | The text or an array of words to be displayed with the fade effect.                                     |
 | `className`       | `string`                          | Additional CSS classes to apply to the component.                                                       |
 | `filter`          | `boolean`                         | Apply a blur filter during the animation. Defaults to `true`.                                           |
 | `duration`        | `number`                          | Duration of the animation in seconds. Defaults to `1`.                                                  |
@@ -73,6 +73,8 @@ The `FadeWords` component accepts several props to customize its behavior and ap
 | `scaleSize`       | `number`                          | Scale size for the words during the animation. Defaults to `1`.                                         |
 | `once`            | `boolean`                         | Whether the animation should occur only once. Defaults to `true`.                                       |
 | `translateAmount` | `number`                          | Custom translate value for the animation. Defaults to `15` for `up`/`down` and `15` for `left`/`right`. |
+| `splitChar`       | `string` or `RegExp`              | Character or regex to split the `words` prop. Defaults to space (`' '`).                                |
+| `includeSpaces`   | `boolean`                         | Whether to include spaces after each word. Defaults to `true`.                                          |
 
 ## Future Components
 

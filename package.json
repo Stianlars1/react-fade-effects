@@ -8,17 +8,6 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rm -rf dist && tsc && shx mkdir -p dist/css/  && shx cp src/css/fadeEffects.module.css dist/css/"
   },
-  "files": [
-    "!src/**",
-    "dist",
-    "types"
-  ],
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
-    }
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/stianlars1/react-fade-effects.git"
