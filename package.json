@@ -1,6 +1,6 @@
 {
   "name": "@stianlarsen/react-fade-effects",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "A collection of React components for smooth fade-in animations, starting with FadeWords. Easily add fade effects to your UI elements with customizable options.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
