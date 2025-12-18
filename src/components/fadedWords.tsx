@@ -7,7 +7,7 @@ import {
   useInView,
 } from "framer-motion";
 import React, { useEffect, useRef } from "react";
-import { FadeWordsProps, FadeWordsVariantType } from "../../types/types";
+import { FadeWordsProps, FadeWordsVariantType } from "../../types";
 
 import styles from "../css/fadeEffects.module.css";
 
