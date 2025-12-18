@@ -1,101 +1,70 @@
 # @stianlarsen/react-fade-effects
 
-[![npm version](https://badge.fury.io/js/%40stianlarsen%2Freact-fade-effects.svg)](https://badge.fury.io/js/%40stianlarsen%2Freact-fade-effects)
+[![npm version](https://img.shields.io/npm/v/@stianlarsen/react-fade-effects.svg)](https://www.npmjs.com/package/@stianlarsen/react-fade-effects)
+[![npm downloads](https://img.shields.io/npm/dm/@stianlarsen/react-fade-effects.svg)](https://www.npmjs.com/package/@stianlarsen/react-fade-effects)
+[![bundle size](https://img.shields.io/bundlephobia/minzip/@stianlarsen/react-fade-effects)](https://bundlephobia.com/package/@stianlarsen/react-fade-effects)
+[![license](https://img.shields.io/npm/l/@stianlarsen/react-fade-effects.svg)](https://github.com/stianlars1/react-fade-effects/blob/main/LICENSE)
 
-A versatile React library for applying various fade-in effects to your UI components. Starting with the `FadeWords` component, this library will grow to include multiple fade-related components, such as fading text, images, children elements, and more.
+Smooth fade-in text animations for React. Lightweight, customizable, and RSC-compatible.
 
-## Preview
-
-![Text effect Component](https://github.com/Stianlars1/react-fade-effects/blob/ced110a481610bdecd600bc72cbbfe589b6ff124/preview.gif)
-
-\_A preview of @stianlarsen/react-face-effects
-
-**Website coming soon with examples and demos**
-
-## Features
-
-- **Smooth Fade Animations**: Easily create engaging fade-in effects for different types of UI elements.
-- **Highly Configurable**: Adjust the animation's duration, delay, stagger time, and more to match your design needs.
-- **Ease of Integration**: Drop the components into your project and customize them with minimal setup.
-- **Built with TypeScript**: Ensures type safety and a better development experience.
+![Preview](preview.gif)
 
 ## Installation
-
-Install the package using npm:
 
 ```bash
 npm install @stianlarsen/react-fade-effects
 ```
 
-Or using yarn:
+## Quick Start
 
-```bash
-yarn add @stianlarsen/react-fade-effects
-```
-
-## Usage
-
-### FadeWords Component
-
-The `FadeWords` component allows you to create smooth fade-in effects for text.
-
-#### Example
-
-```jsx
+```tsx
 import { FadeWords } from "@stianlarsen/react-fade-effects";
 
 function App() {
-  return (
-    <FadeWords
-      words="Effortless Task Management with TaskBuddy"
-      duration={1}
-      delay={0.2}
-      variant="up"
-      scaleSize={1.05}
-    />
-  );
+  return <FadeWords words="Hello World" variant="up" />;
 }
 ```
 
-#### `FadeWords` Component Props
+## Props
 
-The `FadeWords` component accepts several props to customize its behavior and appearance:
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `words` | `string \| string[]` | — | Text to animate |
+| `variant` | `"default" \| "up" \| "down" \| "left" \| "right"` | `"default"` | Animation direction |
+| `duration` | `number` | `1` | Animation duration (seconds) |
+| `delay` | `number` | `0.2` | Initial delay (seconds) |
+| `staggerTime` | `number` | `0.1` | Delay between words (seconds) |
+| `filter` | `boolean` | `true` | Enable blur effect |
+| `once` | `boolean` | `true` | Animate only once when in view |
+| `scaleSize` | `number` | — | Initial scale factor |
+| `translateAmount` | `number` | `15` | Translation distance (px) |
+| `splitChar` | `string \| RegExp` | `" "` | Character to split words |
+| `className` | `string` | — | CSS class for wrapper |
 
-| Prop              | Type                              | Description                                                                                             |
-| ----------------- | --------------------------------- | ------------------------------------------------------------------------------------------------------- |
-| `words`           | `string` or `string[]`            | The text or array of words to be displayed with the fade effect.                                        |
-| `className`       | `string`                          | Additional CSS classes to apply to the component.                                                       |
-| `filter`          | `boolean`                         | Apply a blur filter during the animation. Defaults to `true`.                                           |
-| `duration`        | `number`                          | Duration of the animation in seconds. Defaults to `1`.                                                  |
-| `staggerTime`     | `number`                          | Time in seconds to stagger the animation between words. Defaults to `0.1`.                              |
-| `delay`           | `number`                          | Delay before the animation starts in seconds. Defaults to `0.2`.                                        |
-| `variant`         | default, up, down, left, or right | The direction of the animation. Defaults to `default`.                                                  |
-| `scaleSize`       | `number`                          | Scale size for the words during the animation. Defaults to `1`.                                         |
-| `once`            | `boolean`                         | Whether the animation should occur only once. Defaults to `true`.                                       |
-| `translateAmount` | `number`                          | Custom translate value for the animation. Defaults to `15` for `up`/`down` and `15` for `left`/`right`. |
+## Examples
 
-## Future Components
+```tsx
+// Fade up with blur
+<FadeWords words="Fade up animation" variant="up" />
 
-This package is designed to expand with additional fade components, such as:
+// Fade from right, slower
+<FadeWords words="Sliding in" variant="right" duration={1.5} />
 
-- **FadeChildren**: Apply fade-in effects to child elements within a container.
-- **FadeImages**: Animate image elements with fade effects.
-- **FadeContainers**: Apply fades to entire sections or containers.
+// Custom stagger timing
+<FadeWords words="Word by word" staggerTime={0.2} delay={0.5} />
 
-Each future component will come with its own set of customizable props, following the same flexible design as `FadeWords`.
+// Array of words
+<FadeWords words={["React", "Fade", "Effects"]} variant="down" />
 
-## Contributing
+// No blur effect
+<FadeWords words="Clean fade" filter={false} />
+```
 
-Contributions are always welcome! Please feel free to open issues or submit pull requests.
+## Requirements
+
+- React 18.0+ or 19.x
+- [framer-motion](https://www.framer.com/motion/) (peer dependency)
 
 ## License
 
-`@stianlarsen/react-fade-effects` is [MIT licensed](./LICENSE).
-
-## Contact
-
-For any questions or suggestions, feel free to reach out.
-
-- GitHub: [@stianlars1](https://github.com/stianlars1)
-- Website: [https://stianlarsen.com](https://stianlarsen.com)
-- Email: [stian.larsen@mac.com](mailto:stian.larsen@mac.com)
+MIT © [Stian Larsen](https://stianlarsen.com)

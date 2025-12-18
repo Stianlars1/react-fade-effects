@@ -1,21 +1,41 @@
 {
   "compilerOptions": {
-    "jsx": "react",
-    "target": "ES2024" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
-    "module": "NodeNext" /* Specify what module code is generated. */,
-    "declaration": true /* Generate .d.ts files from TypeScript and JavaScript files in your project. */,
-    "outDir": "dist",
-    "esModuleInterop": true /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables 'allowSyntheticDefaultImports' for type compatibility. */,
-    "forceConsistentCasingInFileNames": true /* Ensure that casing is correct in imports. */,
-    "strict": true /* Enable all strict type-checking options. */,
-    "skipLibCheck": true /* Skip type checking all .d.ts files. */,
-    "typeRoots": ["./node_modules/@types",
-      "types"
-    ]
-  },
+    // Output settings - tsup handles the actual build, this is for type-checking
+    "target": "ES2020",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
 
-  "include": ["src",
-    "types"
-  ],
+    // JSX settings - react-jsx is more efficient for React 17+
+    "jsx": "react-jsx",
+
+    // Type declaration settings
+    "declaration": true,
+    "declarationMap": true,
+
+    // Strict mode for better type safety
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+
+    // Interop settings
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+
+    // Skip checking node_modules types
+    "skipLibCheck": true,
+
+    // No emit - tsup handles building
+    "noEmit": true,
+
+    // Path resolution
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": ["src/**/*"],
   "exclude": ["node_modules", "dist"]
 }
