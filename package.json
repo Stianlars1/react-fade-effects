@@ -12,6 +12,7 @@
   "files": [
     "dist",
     "types"
+
   ],
   "repository": {
     "type": "git",
