@@ -1,7 +1,5 @@
-"use strict";
-// components/FadedWords.tsx
 "use client";
-// components/FadedWords.tsx
+"use strict";
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     var desc = Object.getOwnPropertyDescriptor(m, k);
@@ -121,7 +119,10 @@ const getInitialStyleObject = (variant, filter, scaleSize, translateAmount) => {
     if (scaleSize !== undefined) {
         transformValue += ` scale(${scaleSize})`;
     }
-    return Object.assign(Object.assign({}, baseStyle), { transform: transformValue || undefined });
+    return {
+        ...baseStyle,
+        transform: transformValue || undefined,
+    };
 };
 const tokenize = (str, delimiterRegex) => {
     const tokens = [];

@@ -1,5 +1,3 @@
-// components/FadedWords.tsx
-
 "use client";
 import {
   motion,
@@ -10,6 +8,7 @@ import {
 } from "framer-motion";
 import React, { useEffect, useRef } from "react";
 import { FadeWordsProps, FadeWordsVariantType } from "../../types/types";
+
 import styles from "../css/fadeEffects.module.css";
 
 export const FadedWords = ({
