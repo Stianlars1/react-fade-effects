@@ -1,2 +1,4 @@
-export * from "../types";
-export * from "./components/fadedWords";
+export type {FadeWordsVariantType, FadeWordsProps, } from "../types";
+export {FadedWords} from "./components/fadedWords";
+
+

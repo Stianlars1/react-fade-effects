@@ -1,4 +1,3 @@
-"use client";
 "use strict";
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
@@ -41,58 +40,6 @@ exports.FadedWords = void 0;
 const framer_motion_1 = require("framer-motion");
 const react_1 = __importStar(require("react"));
 const fadeEffects_module_css_1 = __importDefault(require("../css/fadeEffects.module.css"));
-const FadedWords = ({ words, className, filter = true, duration = 1, staggerTime = 0.1, delay = 0.2, variant = "default", scaleSize = undefined, once = true, translateAmount = undefined, splitChar = " ", // Default to space
-includeSpaces = true, }) => {
-    const [scope, animate] = (0, framer_motion_1.useAnimate)();
-    const isInViewContainer = (0, react_1.useRef)(null);
-    const isInView = (0, framer_motion_1.useInView)(isInViewContainer, {
-        once,
-        amount: 0.5,
-    });
-    // Adjusted splitting logic
-    let tokensArray;
-    if (Array.isArray(words)) {
-        // If words is an array, map it to tokens
-        tokensArray = words.map((word) => ({ value: word, isDelimiter: false }));
-    }
-    else {
-        // If words is a string, tokenize it
-        let delimiterRegex;
-        if (splitChar instanceof RegExp) {
-            delimiterRegex = splitChar;
-        }
-        else {
-            // Escape any special regex characters in splitChar
-            delimiterRegex = new RegExp(escapeRegex(splitChar), "g");
-        }
-        tokensArray = tokenize(words, delimiterRegex);
-    }
-    (0, react_1.useEffect)(() => {
-        if (!isInView || !isInViewContainer.current || !scope.current)
-            return;
-        setTimeout(() => {
-            animate(".singleWord", {
-                opacity: 1,
-                filter: filter ? "blur(0px)" : "none",
-                transform: "translateY(0) scale(1)",
-            }, {
-                duration,
-                delay: (0, framer_motion_1.stagger)(staggerTime),
-            });
-        }, delay * 1000); // Convert delay to milliseconds
-    }, [isInView, animate, delay, duration, filter, staggerTime]);
-    const RenderWords = () => {
-        const initialStyleObject = getInitialStyleObject(variant, filter, scaleSize, translateAmount);
-        return (react_1.default.createElement(framer_motion_1.motion.span, { ref: scope, className: `${className || ""} ${fadeEffects_module_css_1.default.textEffectWrapper}` }, tokensArray.map((token, idx) => (react_1.default.createElement(framer_motion_1.motion.span, { key: token.value + idx, className: `${fadeEffects_module_css_1.default.word} singleWord`, style: initialStyleObject },
-            token.value,
-            includeSpaces &&
-                !token.isDelimiter &&
-                idx < tokensArray.length - 1 ? (react_1.default.createElement(react_1.default.Fragment, null, "\u00A0")) : null)))));
-    };
-    return (react_1.default.createElement("div", { ref: isInViewContainer, className: fadeEffects_module_css_1.default.renderWordsWrapper },
-        react_1.default.createElement(RenderWords, null)));
-};
-exports.FadedWords = FadedWords;
 const getInitialStyleObject = (variant, filter, scaleSize, translateAmount) => {
     const baseStyle = {
         opacity: 0,
@@ -147,3 +94,55 @@ const tokenize = (str, delimiterRegex) => {
 const escapeRegex = (str) => {
     return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 };
+const FadedWords = ({ words, className, filter = true, duration = 1, staggerTime = 0.1, delay = 0.2, variant = "default", scaleSize = undefined, once = true, translateAmount = undefined, splitChar = " ", // Default to space
+includeSpaces = true, }) => {
+    const [scope, animate] = (0, framer_motion_1.useAnimate)();
+    const isInViewContainer = (0, react_1.useRef)(null);
+    const isInView = (0, framer_motion_1.useInView)(isInViewContainer, {
+        once,
+        amount: 0.5,
+    });
+    // Adjusted splitting logic
+    let tokensArray;
+    if (Array.isArray(words)) {
+        // If words is an array, map it to tokens
+        tokensArray = words.map((word) => ({ value: word, isDelimiter: false }));
+    }
+    else {
+        // If words is a string, tokenize it
+        let delimiterRegex;
+        if (splitChar instanceof RegExp) {
+            delimiterRegex = splitChar;
+        }
+        else {
+            // Escape any special regex characters in splitChar
+            delimiterRegex = new RegExp(escapeRegex(splitChar), "g");
+        }
+        tokensArray = tokenize(words, delimiterRegex);
+    }
+    (0, react_1.useEffect)(() => {
+        if (!isInView || !isInViewContainer.current || !scope.current)
+            return;
+        setTimeout(() => {
+            animate(".singleWord", {
+                opacity: 1,
+                filter: filter ? "blur(0px)" : "none",
+                transform: "translateY(0) scale(1)",
+            }, {
+                duration,
+                delay: (0, framer_motion_1.stagger)(staggerTime),
+            });
+        }, delay * 1000); // Convert delay to milliseconds
+    }, [isInView, animate, delay, duration, filter, staggerTime]);
+    const RenderWords = () => {
+        const initialStyleObject = getInitialStyleObject(variant, filter, scaleSize, translateAmount);
+        return (react_1.default.createElement(framer_motion_1.motion.span, { ref: scope, className: `${className || ""} ${fadeEffects_module_css_1.default.textEffectWrapper}` }, tokensArray.map((token, idx) => (react_1.default.createElement(framer_motion_1.motion.span, { key: token.value + idx, className: `${fadeEffects_module_css_1.default.word} singleWord`, style: initialStyleObject },
+            token.value,
+            includeSpaces &&
+                !token.isDelimiter &&
+                idx < tokensArray.length - 1 ? (react_1.default.createElement(react_1.default.Fragment, null, "\u00A0")) : null)))));
+    };
+    return (react_1.default.createElement("div", { ref: isInViewContainer, className: fadeEffects_module_css_1.default.renderWordsWrapper },
+        react_1.default.createElement(RenderWords, null)));
+};
+exports.FadedWords = FadedWords;
